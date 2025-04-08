@@ -56,3 +56,4 @@ docker-compose exec web pip freeze > requirements.txt
 "# django_course_online_shop" 
 "# django_course_online_shop" 
 "# django_course_online_shop" 
+"# django_course_online_shop" 
