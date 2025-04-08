@@ -54,3 +54,4 @@ Don't forget to add the new package to requirements.txt for further use:
 docker-compose exec web pip freeze > requirements.txt
 ```
 "# django_course_online_shop" 
+"# django_course_online_shop" 
