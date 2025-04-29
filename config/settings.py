@@ -14,6 +14,8 @@ from pathlib import Path
 from environs import Env
 import os
 
+from django.contrib.messages import constants as messages
+
 # for environment variables
 env = Env()
 env.read_env()
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # third party apps
+    'rosetta',
     'crispy_forms',
     'crispy_bootstrap5',
     'allauth',
@@ -158,6 +161,13 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 LANGUAGE_CODE = 'fa'
 
 
+
+LANGUAGES = (
+    ('en', 'English'),
+    ('fa', 'Persian'),
+)
+
+
 # TIME_ZONE = 'UTC'
 TIME_ZONE = 'Asia/Tehran'
 
@@ -200,3 +210,17 @@ CRISPY_TEMPLATE_PACK='bootstrap'
 # For Bootstrap 5
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
+
+#  gesmat 130 dore : translate templates of root
+
+LOCALE_PATHS = (
+    'templates/locale',
+)
+
+
+
+# For messages framework
+MESSAGE_TAGS = {
+    messages.ERROR:'danger',
+}
