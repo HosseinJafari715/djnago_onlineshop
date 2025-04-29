@@ -8,13 +8,13 @@ from . models import Product, Comment
 from .forms import CommentForm
 
 
-def test_translation(request):
-    result = _('hello')
-    messages.success(request, 'this is a success message.')
-    messages.warning(request, 'aaaa')
-    messages.error(request, 'This is an error')
-    # return HttpResponse(result)
-    return render(request, 'products/testhello.html')
+# def test_translation(request):
+#     result = _('hello')
+#     messages.success(request, 'this is a success message.')
+#     messages.warning(request, 'aaaa')
+#     messages.error(request, 'This is an error')
+#     # return HttpResponse(result)
+#     return render(request, 'products/testhello.html')
 
 
 class ProductListView(generic.ListView):
