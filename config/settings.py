@@ -12,13 +12,28 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 from environs import Env
+
+
+
 import os
 
 from django.contrib.messages import constants as messages
 
+
+# deepseek
+from dotenv import load_dotenv
+# Load .env from the project root
+env_path = Path(__file__).resolve().parent.parent / '.env'
+load_dotenv(env_path)
+
+
+
 # for environment variables
 env = Env()
 env.read_env()
+
+
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -32,7 +47,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool("DJANGO_DEBUG")
+# default:
+# DEBUG = env.bool("DJANGO_DEBUG")
+
+# deepseek:
+DEBUG = env.bool("DJANGO_DEBUG", default=False)  # Default to "False" if not set
+
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.herokuapp.com']
 
@@ -93,6 +113,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # Custom Context Processors
+                'cart.context_processors.cart',
             ],
         },
     },
@@ -104,18 +126,35 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+
+
+# what I commented was codingyar teach, else are indian guy in youtube:
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
+        # 'NAME': 'postgres'
+        'NAME': 'postgres1',
         'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'db',
+        # 'PASSWORD': 'postgres',
+        'PASSWORD': 'hosseinjafari1404',
+        # 'HOST': 'db',
+        'HOST': 'localhost',
         'PORT': 5432
+
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
+# for sqlite DB:
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 
 
 # Password validation
@@ -184,6 +223,12 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 
+
+# Media
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
@@ -200,6 +245,7 @@ LOGOUT_REDIRECT_URL = 'home'
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_USERNAME_REQUIRED = []
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
