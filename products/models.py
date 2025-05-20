@@ -2,6 +2,7 @@ from django.db import models
 from django.shortcuts import reverse
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
 
 class Product(models.Model):
     title = models.CharField(max_length=100)
@@ -10,7 +11,9 @@ class Product(models.Model):
     active = models.BooleanField(default=True)
     image = models.ImageField(verbose_name=_('Product Image'), upload_to='product/product_cover/', blank=True)
 
-    datetime_create = models.DateTimeField(auto_now_add=True)
+    # datetime_create = models.DateTimeField(auto_now_add=True)
+    # datetime_create = models.DateTimeField(default=timezone.now, verbose_name=_('Date Time of Creation'))
+    datetime_create = models.DateTimeField(_('Date Time of Creation') ,default=timezone.now)
     datetime_modified = models.DateTimeField(auto_now=True)
 
 
