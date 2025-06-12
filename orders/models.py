@@ -13,6 +13,8 @@ class Order(models.Model):
     address = models.CharField(_('Address'), max_length=700)
 
     order_notes = models.CharField(_('Order Notes'), max_length=700, blank=True)
+    
+    zarinpal_authority=models.CharField(max_length=255, blank=True)
 
     datetime_created = models.DateTimeField(_('Creat'),auto_now_add=True)
     datetime_modified = models.DateTimeField(_('Modified'),auto_now=True)
@@ -20,6 +22,16 @@ class Order(models.Model):
     def __str__(self):
         return f'Order {self.id}'
     
+
+    def get_total_price(self):
+        # result=0
+        # for item in self.items.all():
+        #     result += item.price * item.quantity
+        # return result
+
+        return sum(item.quantity * item.price for item in self.items.all())
+    
+
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
